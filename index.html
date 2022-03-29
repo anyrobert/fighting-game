@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fight Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="c-game">
+        <div class="c-game__health-bar">
+            <div class="c-game__health-bar-container">
+                <div class="c-game__health-bar--player"></div>
+                <div id="playerHealth" class="c-game__health-bar--fill"></div>
+
+            </div>
+
+            <div id="timer" class="c-game__health-bar--timer">
+                10
+            </div>
+
+            <div class="c-game__health-bar-container">
+                <div class="c-game__health-bar--enemy"></div>
+                <div id="enemyHealth" class="c-game__health-bar--fill"></div>
+
+            </div>
+        </div>
+        <div id="result" class="c-game-result"></div>
+        <canvas id="game"></canvas>
+    </div>
+
+    <script src="js/utils.js"></script>
+    <script src="js/classes.js"></script>
+    <script src="js/index.js"></script>
+</body>
+
+</html>
