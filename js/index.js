@@ -58,6 +58,10 @@ const player = new Figher({
       imageSrc: "../assets/samuraiMack/Take Hit - white silhouette.png",
       framesMax: 4,
     },
+    death: {
+      imageSrc: "../assets/samuraiMack/Death.png",
+      framesMax: 6,
+    },
   },
   attackBox: {
     offset: {
@@ -106,6 +110,10 @@ const enemy = new Figher({
     takeHit: {
       imageSrc: "../assets/kenji/Take hit.png",
       framesMax: 3,
+    },
+    death: {
+      imageSrc: "../assets/kenji/Death.png",
+      framesMax: 7,
     },
   },
   attackBox: {
@@ -215,6 +223,7 @@ handleTimer();
 function checkWinner(player, enemy, timerId) {
   clearTimeout(timerId);
   result.style.display = "flex";
+
   if (player.health === enemy.health) {
     result.innerHTML = "TIE";
     return;
