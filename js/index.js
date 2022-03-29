@@ -55,6 +55,14 @@ const player = new Figher({
       framesMax: 6,
     },
   },
+  attackBox: {
+    offset: {
+      x: -90,
+      y: -65,
+    },
+    width: 170,
+    height: 50,
+  },
 });
 const playerMappedKeys = [...player.movimentKeys, ...player.attackKeys];
 
@@ -92,6 +100,14 @@ const enemy = new Figher({
       framesMax: 4,
     },
   },
+  attackBox: {
+    offset: {
+      x: 175,
+      y: -65,
+    },
+    width: 175,
+    height: 50,
+  },
 });
 const enemyMappedKeys = [...enemy.movimentKeys, ...enemy.attackKeys];
 const players = [player, enemy];
@@ -111,11 +127,10 @@ function startGame() {
   background.update();
   shop.update();
 
-  player.update();
-  player.velocity.x = 0;
-
-  enemy.update();
-  enemy.velocity.x = 0;
+  for (const p of players) {
+    p.update();
+    p.velocity.x = 0;
+  }
 
   const shouldMovePlayerLeft = keysPressed.a && player.lastKeyPressed === "a";
   const shouldMovePlayerRight = keysPressed.d && player.lastKeyPressed === "d";
@@ -163,18 +178,22 @@ function startGame() {
     enemy.switchSprites("fall");
   }
 
-  if (attackColision(player, enemy)) {
-    console.log("Colidiu");
+  if (attackColision(player, enemy, 4)) {
     player.isAttacking = false;
     enemy.health -= 10;
     enemyHealthBar.style.width = `${enemy.health}%`;
   }
+  if (player.isAttacking && player.framesCurrent === 4) {
+    player.isAttacking = false;
+  }
 
-  if (attackColision(enemy, player)) {
-    console.log("Colidiu enemy");
+  if (attackColision(enemy, player, 2)) {
     enemy.isAttacking = false;
     player.health -= 10;
     playerHealthBar.style.width = `${player.health}%`;
+  }
+  if (enemy.isAttacking && enemy.framesCurrent === 2) {
+    enemy.isAttacking = false;
   }
 
   if (player.health <= 0 || enemy.health <= 0) {

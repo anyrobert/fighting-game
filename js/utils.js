@@ -1,16 +1,25 @@
-function attackColision(a, b) {
-  const attackBoxXPosition = a.attackBox.position.x + a.attackBox.width;
-  const attackBoxYPosition = a.attackBox.position.y + a.attackBox.height;
+function attackColision(playerAttacking, anotherPlayer, frameDelay = 0) {
+  const attackBoxXPosition =
+    playerAttacking.attackBox.position.x + playerAttacking.attackBox.width;
+  const attackBoxYPosition =
+    playerAttacking.attackBox.position.y + playerAttacking.attackBox.height;
 
   const xAxisColision =
-    attackBoxXPosition >= b.position.x &&
-    a.attackBox.position.x <= b.position.x + b.width;
+    attackBoxXPosition >= anotherPlayer.position.x &&
+    playerAttacking.attackBox.position.x <=
+      anotherPlayer.position.x + anotherPlayer.width;
 
   const yAxisColision =
-    attackBoxYPosition >= b.position.y &&
-    a.attackBox.position.y <= b.position.y + b.height;
+    attackBoxYPosition >= anotherPlayer.position.y &&
+    playerAttacking.attackBox.position.y <=
+      anotherPlayer.position.y + anotherPlayer.height;
 
-  const willHit = xAxisColision && yAxisColision && a.isAttacking;
+  const willHit =
+    xAxisColision &&
+    yAxisColision &&
+    playerAttacking.isAttacking &&
+    playerAttacking.framesCurrent === frameDelay;
+
   return willHit;
 }
 

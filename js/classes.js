@@ -72,6 +72,11 @@ class Figher extends Sprite {
     framesMax = 1,
     framesHold = 5,
     sprites,
+    attackBox = {
+      offset: {},
+      width: undefined,
+      height: undefined,
+    },
   }) {
     super({
       position,
@@ -94,9 +99,9 @@ class Figher extends Sprite {
         x: this.position.x,
         y: this.position.y,
       },
-      offset,
-      width: 100,
-      height: 50,
+      offset: attackBox.offset,
+      width: attackBox.width,
+      height: attackBox.height,
     };
     this.health = 100;
     this.isAttacking = false;
@@ -113,8 +118,9 @@ class Figher extends Sprite {
   update() {
     this.draw();
     this.animateFrames();
+
     this.attackBox.position.x = this.position.x - this.attackBox.offset.x;
-    this.attackBox.position.y = this.position.y;
+    this.attackBox.position.y = this.position.y - this.attackBox.offset.y;
 
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
@@ -134,10 +140,6 @@ class Figher extends Sprite {
   attack() {
     this.switchSprites("attack1");
     this.isAttacking = true;
-
-    setTimeout(() => {
-      this.isAttacking = false;
-    }, 100);
   }
 
   switchSprites(sprite) {
